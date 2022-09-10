@@ -13,6 +13,10 @@ const addTodo = () => {
 
   inputText.value = '';
 }
+
+const deleteTodo = (index) => {
+  todos.splice(index, 1);
+}
 </script>
 
 <template>
@@ -24,12 +28,13 @@ const addTodo = () => {
 
   <ul>
     <li
-      v-for="todo in todos"
+      v-for="(todo, index) in todos"
       :class="{ checked: todo.checked }"
       :key="todo.text"
       @click="todo.checked = !todo.checked"
     >
       {{ todo.text }}
+      <span class="close" @click="deleteTodo(index)">×</span>
     </li>
   </ul>
 </template>
