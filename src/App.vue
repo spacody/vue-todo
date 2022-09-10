@@ -6,8 +6,8 @@ import Todos from './components/Todos.vue';
 
 const todos = reactive([]);
 
-watch(todos, () => {
-  localStorage.setItem('todos', JSON.stringify(todos));
+watch(todos, (newValue) => {
+  localStorage.setItem('todos', JSON.stringify(newValue));
 });
 
 onMounted(() => {
