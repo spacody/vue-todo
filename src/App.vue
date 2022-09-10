@@ -1,14 +1,21 @@
 <script setup>
+import { ref } from 'vue';
+
+const inputText = ref('');
+
+const addTodo = () => {
+  // TODO 
+}
 </script>
 
 <template>
-  <div id="myDIV" class="header">
+  <div class="header">
     <h2>My To Do List</h2>
-    <input type="text" id="myInput" placeholder="Title...">
-    <span onclick="newElement()" class="addBtn">Add</span>
+    <input type="text" placeholder="Title..." v-model="inputText" />
+    <span @click="addTodo" class="addBtn">Add</span>
   </div>
 
-  <ul id="myUL">
+  <ul>
     <li>Hit the gym</li>
     <li class="checked">Pay bills</li>
     <li>Meet George</li>
