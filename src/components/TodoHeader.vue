@@ -1,13 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-const emits = defineEmits(['todoAdded']);
+import type TodoType from '../types/TodoType';
 
-const inputRef = ref(null);
+const emits = defineEmits({
+  todoAdded: (todo: TodoType) => {
+    return true;
+  }
+});
+
+const inputRef = ref<HTMLInputElement | null>(null);
 const inputText = ref('');
 
 onMounted(() => {
-  inputRef.value.focus();
+  inputRef.value?.focus();
 })
 
 const addTodo = () => {
