@@ -5,8 +5,6 @@ import TodoHeader from './components/TodoHeader.vue';
 
 const todos = reactive([]);
 
-const inputText = ref('');
-
 const addTodo = (todo) => {
   todos.push(todo);
 }
