@@ -1,45 +1,39 @@
 <script setup lang="ts">
-import { reactive, onMounted, watch } from 'vue';
+import { onMounted } from 'vue';
 
 import type TodoType from './types/TodoType'
 
 import TodoHeader from './components/TodoHeader.vue';
 import Todos from './components/Todos.vue';
 
-const todos: TodoType[] = reactive([]);
+import useTodoStore from './store/todo';
+const todoStore = useTodoStore();
 
-watch(todos, (newValue: TodoType[]) => {
-  localStorage.setItem('todos', JSON.stringify(newValue));
-});
+todoStore.$subscribe((mutations, { todos }) => {
+  localStorage.setItem('todos', JSON.stringify(todos));
+})
 
 onMounted(() => {
-  const oldTodos = JSON.parse(localStorage.getItem('todos') || '') || [];
-  todos.push(...oldTodos);
+  todoStore.loadTodos();
 });
 
 const addTodo = (todo: TodoType) => {
-  todos.push(todo);
+  todoStore.addTodo(todo);
 }
 
 const checkTodo = (todo: TodoType) => {
-  const foundTodo: TodoType|undefined = todos.find(item => item === todo);
-
-  if (! foundTodo) {
-    return;
-  }
-
-  foundTodo.checked = !foundTodo.checked;
+  todoStore.checkTodo(todo);
 }
 
 const deleteTodo = (index: number) => {
-  todos.splice(index, 1);
+  todoStore.deleteTodo(index);
 }
 </script>
 
 <template>
   <TodoHeader @todo-added="addTodo" />
 
-  <Todos :todos="todos" @delete-todo="deleteTodo" @check-todo="checkTodo" />
+  <Todos :todos="todoStore.todos" @delete-todo="deleteTodo" @check-todo="checkTodo" />
 </template>
 
 <style scoped>
