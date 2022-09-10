@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import type TodoType from '../types/TodoType';
+import { onMounted } from 'vue';
 
 import useTodoStore from '../store/todo';
 const todoStore = useTodoStore();
 
-const props = defineProps<{
-  todos: TodoType[]
-}>();
+todoStore.$subscribe((mutations, { todos }) => {
+  localStorage.setItem('todos', JSON.stringify(todos));
+})
+
+onMounted(() => {
+  todoStore.loadTodos();
+});
 </script>
 
 <template>
   <ul>
     <li
-      v-for="(todo, index) in props.todos"
+      v-for="(todo, index) in todoStore.todos"
       :class="{ checked: todo.checked }"
       :key="todo.text"
       @click="todoStore.checkTodo(todo)"
