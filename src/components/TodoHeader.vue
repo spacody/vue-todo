@@ -11,7 +11,11 @@ onMounted(() => {
 })
 
 const addTodo = () => {
-  if (! inputText.value) return;
+  if (! inputText.value) {
+    alert('You have to enter some text!');
+
+    return;
+  }
 
   emits('todoAdded', {
     text: inputText.value,
