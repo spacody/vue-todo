@@ -1,22 +1,12 @@
 <script setup lang="ts">
 import type TodoType from '../types/TodoType';
 
+import useTodoStore from '../store/todo';
+const todoStore = useTodoStore();
+
 const props = defineProps<{
   todos: TodoType[]
 }>();
-
-const emits = defineEmits<{
-  (eventName: 'checkTodo', todo: TodoType): void
-  (eventName: 'deleteTodo', index: number): void
-}>();
-
-const checkTodo = (todo: TodoType) => {
-  emits('checkTodo', todo);
-}
-
-const deleteTodo = (index: number) => {
-  emits('deleteTodo', index);
-}
 </script>
 
 <template>
@@ -25,10 +15,10 @@ const deleteTodo = (index: number) => {
       v-for="(todo, index) in props.todos"
       :class="{ checked: todo.checked }"
       :key="todo.text"
-      @click="checkTodo(todo)"
+      @click="todoStore.checkTodo(todo)"
     >
       {{ todo.text }}
-      <span class="close" @click.stop="deleteTodo(index)">×</span>
+      <span class="close" @click.stop="todoStore.deleteTodo(index)">×</span>
     </li>
   </ul>
 </template>
