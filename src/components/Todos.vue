@@ -26,7 +26,7 @@ const deleteTodo = (index) => {
       @click="checkTodo(todo)"
     >
       {{ todo.text }}
-      <span class="close" @click="deleteTodo(index)">×</span>
+      <span class="close" @click.stop="deleteTodo(index)">×</span>
     </li>
   </ul>
 </template>
