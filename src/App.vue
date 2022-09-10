@@ -6,6 +6,8 @@ const todos = reactive([]);
 const inputText = ref('');
 
 const addTodo = () => {
+  if (! inputText.value) return;
+
   todos.push({
     text: inputText.value,
     checked: false
