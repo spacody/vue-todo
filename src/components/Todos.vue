@@ -1,18 +1,20 @@
-<script setup>
-const props = defineProps({
-  todos: {
-    type: Array,
-    required: true
-  }
-});
+<script setup lang="ts">
+import type TodoType from '../types/TodoType';
 
-const emits = defineEmits(['deleteTodo', 'checkTodo']);
+const props = defineProps<{
+  todos: TodoType[]
+}>();
 
-const checkTodo = (todo) => {
+const emits = defineEmits<{
+  (eventName: 'checkTodo', todo: TodoType): void
+  (eventName: 'deleteTodo', index: number): void
+}>();
+
+const checkTodo = (todo: TodoType) => {
   emits('checkTodo', todo);
 }
 
-const deleteTodo = (index) => {
+const deleteTodo = (index: number) => {
   emits('deleteTodo', index);
 }
 </script>
