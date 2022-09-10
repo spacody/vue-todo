@@ -2,11 +2,18 @@
 import { reactive, ref } from 'vue';
 
 import TodoHeader from './components/TodoHeader.vue';
+import Todos from './components/Todos.vue';
 
 const todos = reactive([]);
 
 const addTodo = (todo) => {
   todos.push(todo);
+}
+
+const checkTodo = (todo) => {
+  const foundTodo = todos.find(item => item === todo);
+
+  foundTodo.checked = !foundTodo.checked;
 }
 
 const deleteTodo = (index) => {
@@ -17,17 +24,7 @@ const deleteTodo = (index) => {
 <template>
   <TodoHeader @todo-added="addTodo" />
 
-  <ul>
-    <li
-      v-for="(todo, index) in todos"
-      :class="{ checked: todo.checked }"
-      :key="todo.text"
-      @click="todo.checked = !todo.checked"
-    >
-      {{ todo.text }}
-      <span class="close" @click="deleteTodo(index)">×</span>
-    </li>
-  </ul>
+  <Todos :todos="todos" @delete-todo="deleteTodo" @check-todo="checkTodo" />
 </template>
 
 <style scoped>
