@@ -1,19 +1,14 @@
 <script setup>
 import { reactive, ref } from 'vue';
 
+import TodoHeader from './components/TodoHeader.vue';
+
 const todos = reactive([]);
 
 const inputText = ref('');
 
-const addTodo = () => {
-  if (! inputText.value) return;
-
-  todos.push({
-    text: inputText.value,
-    checked: false
-  });
-
-  inputText.value = '';
+const addTodo = (todo) => {
+  todos.push(todo);
 }
 
 const deleteTodo = (index) => {
@@ -22,11 +17,7 @@ const deleteTodo = (index) => {
 </script>
 
 <template>
-  <div class="header">
-    <h2>My To Do List</h2>
-    <input type="text" placeholder="Title..." v-model="inputText" />
-    <span @click="addTodo" class="addBtn">Add</span>
-  </div>
+  <TodoHeader @todo-added="addTodo" />
 
   <ul>
     <li
