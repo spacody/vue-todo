@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-import type TodoType from '../types/TodoType';
-
-const emits = defineEmits({
-  todoAdded: (todo: TodoType) => {
-    return true;
-  }
-});
+import useTodoStore from '../store/todo';
+const todoStore = useTodoStore();
 
 const inputRef = ref<HTMLInputElement | null>(null);
 const inputText = ref('');
@@ -23,7 +18,7 @@ const addTodo = () => {
     return;
   }
 
-  emits('todoAdded', {
+  todoStore.addTodo({
     text: inputText.value,
     checked: false
   });

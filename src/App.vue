@@ -17,9 +17,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <TodoHeader
-    @todo-added="todoStore.addTodo"
-  />
+  <TodoHeader />
 
   <Todos
     :todos="todoStore.todos"
