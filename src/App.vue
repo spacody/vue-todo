@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
+
+const todos = reactive([]);
 
 const inputText = ref('');
 
@@ -16,12 +18,9 @@ const addTodo = () => {
   </div>
 
   <ul>
-    <li>Hit the gym</li>
-    <li class="checked">Pay bills</li>
-    <li>Meet George</li>
-    <li>Buy eggs</li>
-    <li>Read a book</li>
-    <li>Organize office</li>
+    <li v-for="todo in todos" :key="todo">
+      {{ todo }}
+    </li>
   </ul>
 </template>
 
