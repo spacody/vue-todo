@@ -6,7 +6,10 @@ const todos = reactive([]);
 const inputText = ref('');
 
 const addTodo = () => {
-  todos.push(inputText.value);
+  todos.push({
+    text: inputText.value,
+    checked: false
+  });
 
   inputText.value = '';
 }
@@ -20,8 +23,13 @@ const addTodo = () => {
   </div>
 
   <ul>
-    <li v-for="todo in todos" :key="todo">
-      {{ todo }}
+    <li
+      v-for="todo in todos"
+      :class="{ checked: todo.checked }"
+      :key="todo.text"
+      @click="todo.checked = !todo.checked"
+    >
+      {{ todo.text }}
     </li>
   </ul>
 </template>
