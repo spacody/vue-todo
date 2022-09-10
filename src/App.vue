@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 
-import type TodoType from './types/TodoType'
-
 import TodoHeader from './components/TodoHeader.vue';
 import Todos from './components/Todos.vue';
 
@@ -16,24 +14,18 @@ todoStore.$subscribe((mutations, { todos }) => {
 onMounted(() => {
   todoStore.loadTodos();
 });
-
-const addTodo = (todo: TodoType) => {
-  todoStore.addTodo(todo);
-}
-
-const checkTodo = (todo: TodoType) => {
-  todoStore.checkTodo(todo);
-}
-
-const deleteTodo = (index: number) => {
-  todoStore.deleteTodo(index);
-}
 </script>
 
 <template>
-  <TodoHeader @todo-added="addTodo" />
+  <TodoHeader
+    @todo-added="todoStore.addTodo"
+  />
 
-  <Todos :todos="todoStore.todos" @delete-todo="deleteTodo" @check-todo="checkTodo" />
+  <Todos
+    :todos="todoStore.todos"
+    @delete-todo="todoStore.deleteTodo"
+    @check-todo="todoStore.checkTodo"
+  />
 </template>
 
 <style scoped>
