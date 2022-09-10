@@ -6,7 +6,9 @@ const todos = reactive([]);
 const inputText = ref('');
 
 const addTodo = () => {
-  // TODO 
+  todos.push(inputText.value);
+
+  inputText.value = '';
 }
 </script>
 
